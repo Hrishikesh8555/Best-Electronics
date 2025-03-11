@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ data.product.name }}</h2>
+<mat-dialog-content>
+  <img
+    [src]="data.product.image"
+    alt="{{ data.product.name }}"
+    class="modal-img"
+  />
+  <p><strong>Price:</strong> ${{ data.product.price }}</p>
+  <p><strong>Rating:</strong> ⭐ {{ data.product.rating }}</p>
+  <p><strong>Description:</strong> {{ data.product.description }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <span>Shopping Cart</span>
+  <span class="space"></span>
+  <button mat-button routerLink="">Back</button>
+</mat-toolbar>
+
+<div class="cart-container">
+  <div *ngIf="(cartProducts$ | async)?.length === 0" class="empty-cart">
+    <p>Your cart is empty.</p>
+  </div>
+
+  <mat-card *ngFor="let product of cartProducts$ | async" class="cart-item">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="product.image" alt="{{ product.name }}" />
+    <mat-card-content>
+      <p><strong>Price:</strong> ${{ product.price }}</p>
+      <p><strong>Rating:</strong> ⭐{{ product.rating | number : "1.1-1" }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="removeProduct(product.id)">
+        Remove
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

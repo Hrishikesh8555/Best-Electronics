@@ -1,0 +1,73 @@
+<br />
+<div layout="row" layout-align="center none">
+  <div class="filters">
+    <!-- Search filter -->
+    <mat-form-field appearance="outline">
+      <mat-label>Search by Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
+        placeholder="Search products"
+      />
+    </mat-form-field>
+
+    <!-- Product Type Dropdown filter -->
+    <mat-form-field appearance="outline">
+      <mat-label>Select Product Type</mat-label>
+      <mat-select [(ngModel)]="selectedType" (selectionChange)="applyFilters()">
+        <mat-option *ngFor="let type of productTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Price Range filter -->
+    <div class="price-filters">
+      <label>Select Price Range:</label>
+      <div class="checkbox-group">
+        <mat-checkbox
+          *ngFor="let range of priceRanges"
+          [(ngModel)]="selectedPriceRanges[range]"
+          (change)="applyFilters()"
+        >
+          {{ range }}
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <mat-card *ngFor="let product of displayedProducts" class="product-card">
+      <img mat-card-image [src]="product.image" alt="{{ product.name }}" />
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle
+        >{{ product.type }} - ${{ product.price }}</mat-card-subtitle
+      >
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+        <p>⭐ Rating: {{ product.rating | number : "1.1-1" }}/5</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(product)">
+          Add to Cart
+        </button>
+        <button mat-button color="primary" (click)="openProductModal(product)">
+          View
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Load More  -->
+  <div class="load-more">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="loadMore()"
+      [disabled]="displayedProducts.length >= filteredProducts.length"
+    >
+      Load More
+    </button>
+  </div>
+</div>
