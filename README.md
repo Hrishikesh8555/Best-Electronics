@@ -1,1 +1,1 @@
-Use - npm install - to install dependencies then run the application.
+Use - npm install - to install dependencies and then run the application.
